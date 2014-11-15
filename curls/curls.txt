@@ -1,0 +1,4 @@
+
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://localhost:8080/dwr/1
+
+curl -X POST -d '{ }' http://localhost:8080/dwr
