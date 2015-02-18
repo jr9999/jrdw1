@@ -1,4 +1,4 @@
-package com.cvent.logic;
+package com.cvent.logic.workq;
 
 import java.io.IOException;
 
@@ -21,7 +21,11 @@ public class MessageWorker {
 
     private final static String DEFAULT_DURABLE_QUEUE_NAME = "durable_task_queue1";
 
-    // fake task to simulate execution time
+    /**
+     * fake task to simulate execution time
+     * @param task
+     * @throws InterruptedException
+     */
     private static void doWork(String task) throws InterruptedException {
         for (char ch : task.toCharArray()) {
             if (ch == '.')

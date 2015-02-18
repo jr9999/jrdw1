@@ -1,4 +1,4 @@
-package org.task.creator;
+package com.cvent.logic.workq;
 
 import java.io.IOException;
 
@@ -8,8 +8,9 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.MessageProperties;
 
 /**
- * Hello world!
  * 
+ * @author jregan
+ *
  */
 public class MessageCreator {
 
@@ -19,20 +20,8 @@ public class MessageCreator {
 
     /**
      * 
-     * @param args
      */
-    public static void main(String[] args)
-    {
-        System.out.println("message-");
-
-        // second arg - durable queue or not?
-        performSend(args, true);
-    }
-
-    /**
-     * 
-     */
-    public static void performSend(String[] args, boolean durable) {
+    public void performSend(String[] args, boolean durable) {
 
         try {
 
