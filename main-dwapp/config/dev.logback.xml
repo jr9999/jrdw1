@@ -1,0 +1,54 @@
+<configuration scan="true" scanPeriod="30 seconds">        
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <!-- prettyPrint is probably ok in dev, but usually not ideal in production: -->
+                    <prettyPrint>true</prettyPrint>
+                </jsonFormatter>
+                <appendLineSeparator>true</appendLineSeparator>
+            </layout>  
+        </encoder>
+    </appender>
+    
+    <appender name="BASIC_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+        ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="stderr" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
+    </appender>
+    
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="BASIC_STDOUT" />
+    </appender>
+
+    <logger name="com.cvent.jrdw1" level="TRACE" additivity="false">
+        <appender-ref ref="BASIC_STDOUT" />
+    </logger>
+
+     <logger name="o.s.s.saml.metadata" level="WARN" additivity="true">
+        <appender-ref ref="stderr" />
+    </logger>
+
+    <logger name="retrofit" level="TRACE" additivity="false">
+        <appender-ref ref="BASIC_STDOUT" />
+    </logger>
+
+    <logger name="org.springframework.web" level="DEBUG" additivity="false">
+        <appender-ref ref="BASIC_STDOUT" />
+    </logger>
+
+     <logger name="org.springframework.security" level="DEBUG" additivity="false">
+        <appender-ref ref="BASIC_STDOUT" />
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="ASYNC" />
+    </root>
+        
+</configuration>
