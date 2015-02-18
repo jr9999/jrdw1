@@ -74,5 +74,6 @@
 		<module>logic-classes</module>
 		<module>task-creator</module>
 		<module>main-dwapp</module>
+		<module>message-worker</module>
 	</modules>
 </project>
