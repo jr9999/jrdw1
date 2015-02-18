@@ -60,6 +60,16 @@
 		</dependency>
 	</dependencies>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.cvent.jrdw1</groupId>
+				<artifactId>logic-classes</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<modules>
 		<module>logic-classes</module>
 		<module>task-creator</module>

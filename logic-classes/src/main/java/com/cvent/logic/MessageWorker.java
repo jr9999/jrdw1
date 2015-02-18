@@ -1,54 +1,31 @@
-package com.cvent.jrdw1;
+package com.cvent.logic;
 
 import java.io.IOException;
 
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.ConsumerCancelledException;
 import com.rabbitmq.client.QueueingConsumer;
 import com.rabbitmq.client.ShutdownSignalException;
 
-public class MqInteraction {
 
+public class MessageWorker {
+    
     private final static String QUEUE_NAME = "hello";
-
-    public MqInteraction() {
-
-    }
-
-    /**
-     * 
-     */
-    public void performSend() {
-        
-        try {
-
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("localhost");
-            Connection connection = factory.newConnection();
-            Channel channel;
-
-            channel = connection.createChannel();
-
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-            String message = "Hello World!";
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
-            System.out.println(" [x] Sent '" + message + "'");
-
-            channel.close();
-            connection.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    
+    // fake task to simulate execution time
+    private static void doWork(String task) throws InterruptedException {
+        for (char ch: task.toCharArray()) {
+            if (ch == '.') Thread.sleep(1000);
         }
     }
-    
+
     /**
      * 
      */
     public void performReceive() {
-        
+                       
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         
@@ -66,12 +43,23 @@ public class MqInteraction {
             
             QueueingConsumer consumer = new QueueingConsumer(channel);
             channel.basicConsume(QUEUE_NAME, true, consumer);
+            
+            while (true) {
+                QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+                String message = new String(delivery.getBody());
 
+                System.out.println(" [x] Received '" + message + "'");        
+                doWork(message);
+                System.out.println(" [x] Done");
+            }
+
+            /*basic way
             while (true) {
               QueueingConsumer.Delivery delivery = consumer.nextDelivery();
               String message = new String(delivery.getBody());
               System.out.println(" [x] Received '" + message + "'");
             }
+            */
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,4 +72,5 @@ public class MqInteraction {
         }
         
     }
+    
 }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.couchbase.client.CouchbaseClient;
+import com.cvent.logic.MessageWorker;
 
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -37,9 +38,14 @@ public class App extends Application<DwConfig> {
         client.shutdown();
         */
         
-        MqInteraction mqInteraction = new MqInteraction();
+        /*
+        MessageCreator mqInteraction = new MessageCreator();
         mqInteraction.performSend();
         mqInteraction.performReceive();
+        */
+        
+        MessageWorker messageWorker = new MessageWorker();
+        messageWorker.performReceive();
 
         try {
             new App().run(args);
