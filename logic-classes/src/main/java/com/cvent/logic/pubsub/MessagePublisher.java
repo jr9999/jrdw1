@@ -16,7 +16,7 @@ public class MessagePublisher {
     /**
      * 
      */
-    public void performSend(String[] args, String exchangeName) {
+    public void performSend(String[] args, String exchangeName, String exchangeType, boolean durability) {
 
         try {
             
@@ -47,7 +47,10 @@ public class MessagePublisher {
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
     
-            channel.exchangeDeclare(exchangeName, "fanout");
+            // version without durability - channel.exchangeDeclare(exchangeName, exchangeType);
+            channel.exchangeDeclare(exchangeName, exchangeType, durability);
+            
+            channel.confirmSelect();
     
             String message = getMessage(args);
     
