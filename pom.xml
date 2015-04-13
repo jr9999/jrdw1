@@ -75,5 +75,8 @@
 		<module>task-creator</module>
 		<module>main-dwapp</module>
 		<module>message-worker</module>
+		<module>topic-emit</module>
+		<module>topic-receive</module>
+		<module>jrtrees</module>
 	</modules>
 </project>
