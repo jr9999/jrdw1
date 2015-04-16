@@ -52,6 +52,7 @@ public class JrTreesMain {
         bst.bfsPrint();
         */
         
+        /*
         char[] start = new char[8];
         start[0] = 'a';
         start[1] = 'b';
@@ -79,6 +80,27 @@ public class JrTreesMain {
         StringRotator rot2 = new StringRotator(start2, 3);
         
         char[] result2 = rot2.rotate2();
+        
+        char[] start3 = new char[8];
+        start3[0] = 'a';
+        start3[1] = 'b';
+        start3[2] = 'c';
+        start3[3] = 'd';
+        start3[4] = 'e';
+        start3[5] = 'f';
+        start3[6] = 'g';
+        start3[7] = 'h';
+        
+        StringRotator rot3 = new StringRotator(start3, 3);
+        
+        //char[] result3 = rot3.rotate3();
+         * 
+         *
+         */
+        
+        BinarySearchAlg bsa = new BinarySearchAlg();
+        
+        boolean found = bsa.search(52);
         
     }
 
