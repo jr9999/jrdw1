@@ -8,14 +8,14 @@ import java.util.Queue;
  * @author jregan
  * 
  */
-public class BinarySearchTree {
+public class BinaryTree {
 
-    public Node parent;
+    public BinaryNode parent;
 
     /**
      * 
      */
-    public BinarySearchTree() {
+    public BinaryTree() {
         parent = null;
     }
 
@@ -23,7 +23,7 @@ public class BinarySearchTree {
      * 
      * @param node
      */
-    public void setParent(Node node) {
+    public void setParent(BinaryNode node) {
         parent = node;
     }
 
@@ -31,7 +31,7 @@ public class BinarySearchTree {
      * 
      * @param node
      */
-    public void addNode(Node node) {
+    public void addNode(BinaryNode node) {
         if (parent == null) {
             node = parent;
         } else {
@@ -73,9 +73,29 @@ public class BinarySearchTree {
         
         if (parent != null) {
             
-            Queue<Node> q = new LinkedList<Node>();
+            Queue<BinaryNode> q = new LinkedList<BinaryNode>();
             
             parent.bfsPrint(q);
         }
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public int[] toArray() {
+        //first traversal to get # of elements.
+        
+        int numNodes = parent.preorderTraverse();
+        
+        int[] treeArray = new int[numNodes];
+        
+        IndexAccumulator accum = new IndexAccumulator();
+        accum.index = 0;
+        
+        
+        treeArray = parent.preorderInsert(accum, treeArray);
+        
+        return treeArray;
     }
 }

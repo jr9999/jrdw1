@@ -7,18 +7,18 @@ import java.util.Queue;
  * @author jregan
  * 
  */
-public class Node {
+public class BinaryNode {
 
-    public Node left;
+    public BinaryNode left;
 
-    public Node right;
+    public BinaryNode right;
 
     public int value;
 
     /**
      * 
      */
-    public Node() {
+    public BinaryNode() {
         left = null;
         right = null;
 
@@ -29,7 +29,7 @@ public class Node {
      * 
      * @param val
      */
-    public Node(int val) {
+    public BinaryNode(int val) {
         left = null;
         right = null;
         value = val;
@@ -39,7 +39,7 @@ public class Node {
      * 
      * @param node
      */
-    public void addChild(Node node) {
+    public void addChild(BinaryNode node) {
         if (this.value < node.value) {
             if (right == null) {
                 right = node;
@@ -69,6 +69,48 @@ public class Node {
         if (right != null) {
             right.preorderPrint();
         }
+    }
+    
+    /**
+     * 
+     * @param numNodesFound
+     * @return
+     */
+    public int preorderTraverse() {
+        
+        int numNodesFound = 1;
+        
+        if (left != null) {
+            numNodesFound += left.preorderTraverse();
+        }
+
+        if (right != null) {
+            numNodesFound += right.preorderTraverse();
+        }
+        
+        return numNodesFound;
+        
+    }
+    
+    /**
+     * 
+     * @param treeArray
+     * @return
+     */
+    public int[] preorderInsert(IndexAccumulator accum, int[] treeArray) {
+       
+        treeArray[accum.index] = this.value;
+        accum.index++;
+        
+        if (left != null) {
+            left.preorderInsert(accum, treeArray);
+        }
+
+        if (right != null) {
+            right.preorderInsert(accum, treeArray);
+        }
+        
+        return treeArray;
     }
 
     /**
@@ -107,13 +149,13 @@ public class Node {
      * @param q
      * 
      */
-    public void bfsPrint(Queue<Node> q) {
+    public void bfsPrint(Queue<BinaryNode> q) {
 
         q.add(this);
 
         while (q.size() != 0) {
             
-            Node node = q.remove();
+            BinaryNode node = q.remove();
 
             System.out.println(node.value);
 
@@ -125,4 +167,5 @@ public class Node {
             }
         }
     }
+
 }
